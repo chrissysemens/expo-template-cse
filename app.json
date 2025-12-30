@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "FootyBoostMachine",
-    "slug": "FootyBoostMachine",
+    "name": "CSe Template",
+    "slug": "cse-template",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,9 +13,11 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
+      "bundleIdentifier": "com.cse.app",
       "supportsTablet": true
     },
     "android": {
+      "package": "com.cse.app",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -25,6 +27,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": ["expo-router"]
   }
 }
