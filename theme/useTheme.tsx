@@ -11,7 +11,7 @@ export function useTheme() {
   const resolved: ResolvedTheme =
     themeMode === 'system' ? (system === 'dark' ? 'dark' : 'light') : themeMode;
 
-  const colors = resolved === 'dark' ? darkColors : lightColors;
+  const colours = resolved === 'dark' ? darkColors : lightColors;
 
-  return { themeMode, resolved, colors };
+  return { themeMode, resolved, colours };
 }

@@ -16,7 +16,7 @@ export function AppLayout({
   style,
   ...props
 }: Props) {
-  const { colors } = useTheme();
+  const { colours } = useTheme();
   const insets = useSafeAreaInsets();
 
   return (
@@ -25,7 +25,7 @@ export function AppLayout({
       style={[
         {
           flex: 1,
-          backgroundColor: colors.background,
+          backgroundColor: colours.bg,
           paddingTop: safe ? insets.top : 0,
           paddingBottom: safe ? insets.bottom : 0,
         },

@@ -1,10 +1,10 @@
 import { View, Pressable } from 'react-native';
-import { Text } from '../components/Text';
+import { Text } from '../components/text/Text';
 import { useAppStore } from '../state/useAppStore';
 import { useTheme } from '../theme/useTheme';
 
 export default function Home() {
-  const { colors, resolved } = useTheme();
+  const { colours, resolved } = useTheme();
   const themeMode = useAppStore((s) => s.themeMode);
   const setThemeMode = useAppStore((s) => s.setThemeMode);
 
@@ -12,12 +12,12 @@ export default function Home() {
     <View
       style={{
         flex: 1,
-        backgroundColor: colors.background,
+        backgroundColor: colours.bg,
         padding: 16,
         gap: 12,
       }}
     >
-      <Text variant="lg" weight="semibold">
+      <Text size="lg" weight="semibold">
         Theme
       </Text>
       <Text tone="muted">
@@ -34,9 +34,9 @@ export default function Home() {
               paddingVertical: 10,
               paddingHorizontal: 12,
               borderRadius: 10,
-              backgroundColor: selected ? colors.card : 'transparent',
+              backgroundColor: selected ? colours.surface : 'transparent',
               borderWidth: 1,
-              borderColor: colors.border,
+              borderColor: colours.border,
             }}
           >
             <Text weight={selected ? 'bold' : 'regular'}>{m}</Text>

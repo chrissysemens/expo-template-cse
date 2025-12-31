@@ -4,8 +4,12 @@ import {
   TextProps as RNTextProps,
   TextStyle,
 } from 'react-native';
-import { useTheme } from '../theme/useTheme';
-import { fontFamilies, getFontSize, getLineHeight } from '../theme/typography';
+import { useTheme } from '../../theme/useTheme';
+import {
+  fontFamilies,
+  getFontSize,
+  getLineHeight,
+} from '../../theme/typography';
 
 type Variant = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 type Weight = keyof typeof fontFamilies;
@@ -21,32 +25,34 @@ const caps: Record<Variant, number> = {
 };
 
 type Props = RNTextProps & {
-  variant?: Variant;
+  size?: Variant;
   weight?: Weight;
   tone?: 'default' | 'muted';
 };
 
-export function Text({
-  variant = 'md',
+const Text = ({
+  size = 'sm',
   weight = 'regular',
   tone = 'default',
   style,
   ...props
-}: Props) {
-  const { colors } = useTheme();
+}: Props) => {
+  const { colours } = useTheme();
 
   const textStyle: TextStyle = {
     fontFamily: fontFamilies[weight],
-    fontSize: getFontSize(variant),
-    lineHeight: getLineHeight(variant),
-    color: tone === 'muted' ? colors.mutedText : colors.text,
+    fontSize: getFontSize(size),
+    lineHeight: getLineHeight(size),
+    color: tone === 'muted' ? colours.muted : colours.text,
   };
 
   return (
     <RNText
       {...props}
-      maxFontSizeMultiplier={caps[variant]}
+      maxFontSizeMultiplier={caps[size]}
       style={[textStyle, style]}
     />
   );
 }
+
+export { Text }

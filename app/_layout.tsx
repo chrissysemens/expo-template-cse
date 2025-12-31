@@ -5,14 +5,14 @@ import { AppLayout } from 'layout/AppLayout';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function RootLayout() {
-  const { resolved, colors } = useTheme();
+  const { resolved, colours } = useTheme();
 
   return (
     <SafeAreaProvider>
       <AppLayout safe padded>
         <StatusBar
           style={resolved === 'dark' ? 'light' : 'dark'}
-          backgroundColor={colors.background}
+          backgroundColor={colours.bg}
         />
         <Stack screenOptions={{ headerShown: false }} />
       </AppLayout>
