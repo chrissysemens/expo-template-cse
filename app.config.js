@@ -6,6 +6,7 @@ export default ({ config }) => {
 
     name: 'CSE Template',
     slug: 'cse-template',
+    scheme: 'cse-template',
     version: '1.0.0',
     orientation: 'portrait',
     userInterfaceStyle: 'light',
@@ -41,6 +42,7 @@ export default ({ config }) => {
     plugins: [
       ['expo-router', storybookEnabled ? { root: './src/storybook-app' } : {}],
       'expo-localization',
+      '@react-native-community/datetimepicker',
     ],
   };
 };
