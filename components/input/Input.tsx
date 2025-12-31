@@ -37,7 +37,9 @@ const Input = forwardRef<RNTextInput, Props>(
         />
 
         {error ? (
-          <Text size='sm' style={[styles.error, { color: colours.danger }]}>{error}</Text>
+          <Text size="sm" style={[styles.error, { color: colours.danger }]}>
+            {error}
+          </Text>
         ) : null}
       </View>
     );

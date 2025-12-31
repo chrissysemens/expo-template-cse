@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { View } from "react-native";
+import type { Meta, StoryObj } from '@storybook/react';
+import { View } from 'react-native';
 import { Text } from './Text';
 
 const meta: Meta = {
-  title: "Components/Text",
+  title: 'Components/Text',
 };
 
 export default meta;

@@ -46,7 +46,9 @@ const Button = ({ text, onPress, loading = false }: Props) => {
       {loading ? (
         <Spinner />
       ) : (
-        <Text size='sm' style={[styles.text, { color: colours.white }]}>{text}</Text>
+        <Text size="sm" style={[styles.text, { color: colours.white }]}>
+          {text}
+        </Text>
       )}
     </AnimatedPressable>
   );

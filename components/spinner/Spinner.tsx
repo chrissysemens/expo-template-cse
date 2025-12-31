@@ -29,7 +29,7 @@ const Spinner = ({
         easing: Easing.linear,
       }),
       -1,
-      false
+      false,
     );
   }, []);
 
@@ -66,4 +66,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { Spinner }
+export { Spinner };

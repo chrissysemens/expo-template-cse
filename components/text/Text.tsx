@@ -53,6 +53,6 @@ const Text = ({
       style={[textStyle, style]}
     />
   );
-}
+};
 
-export { Text }
+export { Text };
