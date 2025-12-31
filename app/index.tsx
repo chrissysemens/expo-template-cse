@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from 'react-native';
 
 const HomeScreen = () => {
   return (
@@ -12,16 +12,16 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   title: {
     fontSize: 22,
-    fontWeight: "600",
+    fontWeight: '600',
   },
   subtitle: {
     marginTop: 8,
-    color: "#666",
+    color: '#666',
   },
 });
 
