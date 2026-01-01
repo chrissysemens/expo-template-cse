@@ -9,17 +9,19 @@ type Props = ViewProps & {
   align?: ViewStyle['alignItems'];
   justify?: ViewStyle['justifyContent'];
   wrap?: boolean;
+  fullWidth?: boolean;
 };
 
-export const Row = ({
+export function Row({
   gap = 3,
   align = 'center',
   justify,
   wrap = false,
+  fullWidth = true,
   style,
   children,
   ...props
-}: Props) => {
+}: Props) {
   const { theme } = useTheme();
   const kids = React.Children.toArray(children).filter(Boolean);
 
@@ -27,6 +29,7 @@ export const Row = ({
     <View
       {...props}
       style={[
+        fullWidth && { alignSelf: 'stretch', width: '100%' },
         {
           flexDirection: 'row',
           alignItems: align,
@@ -46,4 +49,4 @@ export const Row = ({
       ))}
     </View>
   );
-};
+}

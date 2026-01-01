@@ -16,6 +16,7 @@ A personal Expo starter kit with a lightweight design system, Expo Router, Zusta
 - Storybook for React Native
 - Jest + @testing-library/react-native
 - Prettier + Husky
+- React query
 
 ### Design system
 
@@ -186,6 +187,8 @@ state/               # zustand stores
 storybook-app/       # storybook entry
 assets/              # fonts and images
 i18n/                # translations
+api/                 # react query api folder
+queries/             # react query queries folder
 ```
 
 ---

@@ -1,8 +1,9 @@
-import { TouchableOpacity, View } from 'react-native';
+import React, { useMemo, useState } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+
 import { Text } from '../text/Text';
-import { StyleSheet } from 'react-native';
-import React, { useState } from 'react';
 import { useTheme } from '../../theme/useTheme';
+import { Spinner } from '../spinner/Spinner';
 
 export type DropdownOption = {
   label: string;
@@ -13,105 +14,140 @@ type Props = {
   label: string;
   placeholder: string;
   options: DropdownOption[];
-  value: string | null;
-  onChange: (value: string) => void;
+  value?: string | number | null;
+  onChange: (value: string | null) => void;
+  isLoading?: boolean;
+  isDisabled?: boolean;
+  fullWidth?: boolean;
   testID?: string;
 };
+
 const Dropdown = ({
   label,
   placeholder,
   options,
   value,
   onChange,
+  isLoading = false,
+  isDisabled = false,
+  fullWidth = false,
   testID,
 }: Props) => {
-  const [open, setOpen] = useState<boolean>();
+  const [open, setOpen] = useState(false);
   const { theme } = useTheme();
 
-  const selected = options.find(
-    (option: DropdownOption) => option.value === value,
+  const selected = useMemo(
+    () => options.find((o) => o.value === value) ?? null,
+    [options, value],
   );
 
+  const disabled = isDisabled || isLoading;
+
   return (
-    <>
-      <Text testID="input-label" accessibilityLabel="input-label">
+    <View style={{ width: fullWidth ? '100%' : undefined }}>
+      <Text
+        variant="label"
+        color="text2"
+        style={{ marginBottom: theme.spacing[1] }}
+      >
         {label}
       </Text>
+
       <TouchableOpacity
         testID={testID || 'dropdown'}
         accessibilityLabel={testID || 'dropdown'}
+        activeOpacity={0.85}
         style={[
           styles.dropdown,
           {
-            backgroundColor: theme.colours.surface,
+            height: theme.components.controlHeight,
+            borderRadius: theme.components.controlRadius,
+            paddingHorizontal: theme.spacing[3],
+            width: '100%',
+
+            // ✅ use existing tokens
+            backgroundColor: disabled
+              ? theme.colours.surface2
+              : theme.colours.surface,
+
             borderColor: theme.colours.border,
+            opacity: disabled ? 0.6 : 1,
           },
         ]}
-        onPress={() => setOpen((prev) => !prev)}
+        onPress={() => {
+          if (!disabled) setOpen((prev) => !prev);
+        }}
+        disabled={disabled}
       >
-        <Text variant="label">{selected ? selected.label : placeholder}</Text>
+        {isLoading ? (
+          <Spinner size="sm" color={theme.colours.muted} thickness={2} />
+        ) : (
+          <Text
+            variant="body"
+            color={selected ? 'text' : 'muted'}
+            numberOfLines={1}
+          >
+            {selected ? selected.label : placeholder}
+          </Text>
+        )}
       </TouchableOpacity>
-      {open && (
+
+      {open && !disabled && (
         <View
           style={[
             styles.options,
             {
+              marginTop: theme.spacing[1],
               backgroundColor: theme.colours.surface,
               borderColor: theme.colours.border,
+              borderRadius: theme.radii.md,
             },
           ]}
         >
-          {options.map((option: DropdownOption) => (
-            <TouchableOpacity
-              key={option.value}
-              style={[
-                styles.option,
-                {
-                  backgroundColor: theme.colours.surface,
-                },
-                selected &&
-                  selected.value === option.value && {
-                    backgroundColor: theme.colours.primary,
+          {options.map((option) => {
+            const isSelected = selected?.value === option.value;
+
+            return (
+              <TouchableOpacity
+                key={option.value}
+                activeOpacity={0.85}
+                style={[
+                  styles.option,
+                  {
+                    paddingVertical: theme.spacing[3],
+                    paddingHorizontal: theme.spacing[3],
+                    backgroundColor: isSelected
+                      ? theme.colours.primarySoft
+                      : theme.colours.surface,
                   },
-              ]}
-              onPress={() => {
-                onChange(option.value);
-                setOpen(false);
-              }}
-            >
-              <Text>{option.label}</Text>
-            </TouchableOpacity>
-          ))}
+                ]}
+                onPress={() => {
+                  onChange(option.value);
+                  setOpen(false);
+                }}
+              >
+                <Text variant="body" color={isSelected ? 'primary' : 'text'}>
+                  {option.label}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
         </View>
       )}
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   dropdown: {
-    height: 44,
-    display: 'flex',
-    alignContent: 'center',
-    verticalAlign: 'middle',
     justifyContent: 'center',
-    paddingHorizontal: 10,
-    borderRadius: 10,
     borderWidth: StyleSheet.hairlineWidth,
   },
   options: {
     overflow: 'hidden',
-    marginHorizontal: 10,
     borderWidth: StyleSheet.hairlineWidth,
-    borderTopWidth: 0,
-    borderBottomLeftRadius: 8,
-    borderBottomRightRadius: 8,
   },
-  option: {
-    paddingVertical: 10,
-    paddingLeft: 8,
-  },
-  selected: {},
+  option: {},
 });
 
 export { Dropdown };
