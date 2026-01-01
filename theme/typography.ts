@@ -5,39 +5,38 @@ export const fontFamilies = {
   medium: 'InterMedium',
   semibold: 'InterSemiBold',
   bold: 'InterBold',
-};
-
-export const fontSizes = {
-  xs: 12,
-  sm: 14,
-  md: 16,
-  lg: 18,
-  xl: 22,
-  '2xl': 26,
-  '3xl': 32,
 } as const;
 
-export const lineHeights = {
-  xs: 16,
-  sm: 20,
-  md: 24,
-  lg: 26,
-  xl: 30,
-  '2xl': 34,
-  '3xl': 40,
+const s = (n: number) => n;
+const S = (n: number) => scaleFont(n);
+
+export const typography = {
+  label: {
+    fontFamily: fontFamilies.medium,
+    fontSize: s(14),
+    lineHeight: s(20),
+  },
+
+  body: {
+    fontFamily: fontFamilies.regular,
+    fontSize: s(16),
+    lineHeight: s(24),
+  },
+  bodyStrong: {
+    fontFamily: fontFamilies.semibold,
+    fontSize: s(16),
+    lineHeight: s(24),
+  },
+
+  caption: {
+    fontFamily: fontFamilies.regular,
+    fontSize: s(12),
+    lineHeight: s(16),
+  },
+
+  h3: { fontFamily: fontFamilies.semibold, fontSize: s(18), lineHeight: s(26) },
+  h2: { fontFamily: fontFamilies.bold, fontSize: S(22), lineHeight: S(30) },
+  h1: { fontFamily: fontFamilies.bold, fontSize: S(26), lineHeight: S(34) },
 } as const;
 
-// Only scale larger sizes (keeps body text stable)
-export function getFontSize(variant: keyof typeof fontSizes) {
-  const base = fontSizes[variant];
-  return variant === 'xl' || variant === '2xl' || variant === '3xl'
-    ? scaleFont(base)
-    : base;
-}
-
-export function getLineHeight(variant: keyof typeof lineHeights) {
-  const base = lineHeights[variant];
-  return variant === 'xl' || variant === '2xl' || variant === '3xl'
-    ? scaleFont(base)
-    : base;
-}
+export type TextVariant = keyof typeof typography;

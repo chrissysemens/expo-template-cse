@@ -2,57 +2,38 @@ import React from 'react';
 import {
   Text as RNText,
   TextProps as RNTextProps,
+  StyleProp,
   TextStyle,
 } from 'react-native';
 import { useTheme } from '../../theme/useTheme';
-import {
-  fontFamilies,
-  getFontSize,
-  getLineHeight,
-} from '../../theme/typography';
-
-type Variant = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
-type Weight = keyof typeof fontFamilies;
-
-const caps: Record<Variant, number> = {
-  xs: 1.2,
-  sm: 1.2,
-  md: 1.3,
-  lg: 1.3,
-  xl: 1.4,
-  '2xl': 1.4,
-  '3xl': 1.4,
-};
+import type { TextVariant } from '../../theme/typography';
 
 type Props = RNTextProps & {
-  size?: Variant;
-  weight?: Weight;
-  tone?: 'default' | 'muted';
+  variant?: TextVariant;
+  color?: 'text' | 'text2' | 'muted' | 'primary' | 'danger' | 'success' | 'warning';
+  style?: StyleProp<TextStyle>;
 };
 
 const Text = ({
-  size = 'sm',
-  weight = 'regular',
-  tone = 'default',
+  variant = 'body',
+  color = 'text',
   style,
-  ...props
+  ...rest
 }: Props) => {
-  const { colours } = useTheme();
-
-  const textStyle: TextStyle = {
-    fontFamily: fontFamilies[weight],
-    fontSize: getFontSize(size),
-    lineHeight: getLineHeight(size),
-    color: tone === 'muted' ? colours.muted : colours.text,
-  };
+  const { theme } = useTheme();
 
   return (
     <RNText
-      {...props}
-      maxFontSizeMultiplier={caps[size]}
-      style={[textStyle, style]}
+      testID="text"
+      accessibilityLabel="text"
+      {...rest}
+      style={[
+        theme.typography[variant],
+        { color: theme.colours[color] },
+        style,
+      ]}
     />
   );
-};
+}
 
-export { Text };
+export { Text}

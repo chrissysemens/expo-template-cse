@@ -7,18 +7,18 @@ import Animated, {
   withRepeat,
   Easing,
 } from 'react-native-reanimated';
+import { useTheme } from '../../theme/useTheme';
 
-type LoaderProps = {
-  size?: number;
+type SpinnerSize = 'sm' | 'md' | 'lg';
+
+type Props = {
+  size?: SpinnerSize | number;
   color?: string;
   thickness?: number;
 };
 
-const Spinner = ({
-  size = 24,
-  color = '#FFFFFF',
-  thickness = 2,
-}: LoaderProps) => {
+const Spinner = ({ size = 'md', color, thickness = 2 }: Props) => {
+  const { theme } = useTheme();
   const progress = useSharedValue(0);
 
   useEffect(() => {
@@ -37,18 +37,30 @@ const Spinner = ({
     transform: [{ rotate: `${progress.value * 360}deg` }],
   }));
 
+  const resolvedSize =
+    typeof size === 'number'
+      ? size
+      : {
+          sm: theme.sizes.iconSm,
+          md: theme.sizes.iconMd,
+          lg: theme.sizes.iconLg,
+        }[size];
+
+  const resolvedColor = color ?? theme.colours.text;
+
   return (
     <Animated.View
+      testID="spinner"
+      accessibilityLabel="spinner"
+      accessibilityRole="progressbar"
       style={[
         styles.loader,
         {
-          alignContent: 'center',
-          justifyContent: 'center',
-          width: size,
-          height: size,
-          borderRadius: size / 2,
+          width: resolvedSize,
+          height: resolvedSize,
+          borderRadius: resolvedSize / 2,
           borderWidth: thickness,
-          borderColor: color,
+          borderColor: resolvedColor,
           borderBottomColor: 'transparent',
           opacity: 0.7,
         },
@@ -61,8 +73,6 @@ const Spinner = ({
 const styles = StyleSheet.create({
   loader: {
     alignSelf: 'center',
-    display: 'flex',
-    boxSizing: 'border-box', // harmless on RN, matches intent
   },
 });
 

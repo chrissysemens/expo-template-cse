@@ -15,7 +15,7 @@ export const Basic: Story = {
     <View style={{ padding: 24 }}>
       <Card>
         <View>
-          <Text size="sm">Content</Text>
+          <Text variant='caption'>Content</Text>
         </View>
       </Card>
     </View>

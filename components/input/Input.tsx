@@ -1,44 +1,105 @@
-import { forwardRef } from 'react';
+import React, { forwardRef, useState } from 'react';
 import {
   TextInput as RNTextInput,
   View,
   StyleSheet,
   TextInputProps,
+  ViewStyle,
 } from 'react-native';
-import { useTheme } from 'theme/useTheme';
+import { useTheme } from '../../theme/useTheme';
 import { Text } from '../text/Text';
 
 type Props = TextInputProps & {
   label?: string;
   error?: string;
+  helperText?: string;
+  containerStyle?: ViewStyle;
 };
 
 const Input = forwardRef<RNTextInput, Props>(
-  ({ label, error, style, ...props }, ref) => {
-    const { colours } = useTheme();
+  (
+    {
+      label,
+      error,
+      helperText,
+      style,
+      containerStyle,
+      onFocus,
+      onBlur,
+      ...props
+    },
+    ref,
+  ) => {
+    const { theme } = useTheme();
+    const [focused, setFocused] = useState(false);
+
+    const borderColor = error
+      ? theme.colours.danger
+      : focused
+        ? theme.colours.primary
+        : theme.colours.border;
 
     return (
-      <View style={styles.wrapper}>
-        {label ? <Text size="sm">{label}</Text> : null}
+      <View style={[styles.wrapper, containerStyle]}>
+        {label ? (
+          <Text
+            testID="input-label"
+            accessibilityLabel="input-label"
+            variant="label"
+            color="text2"
+            style={{ marginBottom: theme.spacing[1] }}
+          >
+            {label}
+          </Text>
+        ) : null}
 
         <RNTextInput
+          testID="text-input"
+          accessibilityLabel="text-input"
           ref={ref}
-          placeholderTextColor={colours.muted}
+          placeholderTextColor={theme.colours.muted}
+          onFocus={(e) => {
+            setFocused(true);
+            onFocus?.(e);
+          }}
+          onBlur={(e) => {
+            setFocused(false);
+            onBlur?.(e);
+          }}
           style={[
-            styles.input,
+            styles.inputBase,
             {
-              backgroundColor: colours.surface,
-              color: colours.text,
-              borderColor: error ? colours.danger : colours.border,
+              height: theme.components.controlHeight,
+              paddingHorizontal: theme.spacing[3],
+              borderRadius: theme.components.controlRadius,
+              backgroundColor: focused
+                ? theme.colours.surface2
+                : theme.colours.surface,
+              color: theme.colours.text,
+              borderColor,
             },
+            // Apply your default text style consistently
+            theme.typography.body,
             style,
           ]}
           {...props}
         />
 
         {error ? (
-          <Text size="sm" style={[styles.error, { color: colours.danger }]}>
+          <Text
+            variant="caption"
+            color="danger"
+            style={{ marginTop: theme.spacing[1] }}
+          >
             {error}
+          </Text>
+        ) : helperText ? (
+          <Text
+            variant="caption"
+            color="muted"
+            style={{ marginTop: theme.spacing[1] }}
+          >
+            {helperText}
           </Text>
         ) : null}
       </View>
@@ -50,24 +111,10 @@ const styles = StyleSheet.create({
   wrapper: {
     width: '100%',
   },
-  label: {
-    fontSize: 8,
-    marginBottom: 6,
-    fontWeight: '500',
-  },
-  input: {
-    height: 44,
-    paddingHorizontal: 12,
-    borderRadius: 10,
+  inputBase: {
     borderWidth: StyleSheet.hairlineWidth,
-    fontSize: 14,
-  },
-  error: {
-    fontSize: 12,
-    marginTop: 6,
   },
 });
 
-Input.displayName = 'TextInput';
-
-export { Input };
+Input.displayName = 'Input';
+export {Input };
