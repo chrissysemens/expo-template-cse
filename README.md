@@ -205,11 +205,13 @@ i18n/                # translations
 This template includes a minimal `eas.json` for convenience.
 
 Profiles:
+
 - `development` – dev-client builds
 - `preview` – internal distribution
 - `production` – store builds (no auto-submit)
 
 Before using EAS:
+
 - Update app identifiers (bundle ID / package name)
 - Configure credentials via `eas build`
 - Adjust profiles as needed for your app
