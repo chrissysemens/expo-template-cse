@@ -117,4 +117,4 @@ const styles = StyleSheet.create({
 });
 
 Input.displayName = 'Input';
-export {Input };
+export { Input };

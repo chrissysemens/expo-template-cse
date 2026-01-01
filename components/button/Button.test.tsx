@@ -4,7 +4,9 @@ import { Button } from './Button';
 
 describe('Button', () => {
   it('renders correctly', () => {
-    const { getByTestId } = render(<Button testID="button" text="Test" onPress={() => {}} />);
+    const { getByTestId } = render(
+      <Button testID="button" text="Test" onPress={() => {}} />,
+    );
     expect(getByTestId('button')).toBeTruthy();
   });
 });

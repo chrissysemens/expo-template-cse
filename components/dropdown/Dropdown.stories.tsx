@@ -15,7 +15,7 @@ type Story = StoryObj<typeof Dropdown>;
 export const Basic: Story = {
   render: () => {
     const [league, setLeague] = useState<string | null>(null);
-    
+
     return (
       <View style={{ padding: 24 }}>
         <Dropdown

@@ -65,8 +65,8 @@ export function Card({
 
   return (
     <View
-      testID={testID || "card"}
-      accessibilityLabel={testID || "card"}
+      testID={testID || 'card'}
+      accessibilityLabel={testID || 'card'}
       style={[
         styles.base,
         {

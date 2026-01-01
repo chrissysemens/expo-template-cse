@@ -10,16 +10,18 @@ import type { TextVariant } from '../../theme/typography';
 
 type Props = RNTextProps & {
   variant?: TextVariant;
-  color?: 'text' | 'text2' | 'muted' | 'primary' | 'danger' | 'success' | 'warning';
+  color?:
+    | 'text'
+    | 'text2'
+    | 'muted'
+    | 'primary'
+    | 'danger'
+    | 'success'
+    | 'warning';
   style?: StyleProp<TextStyle>;
 };
 
-const Text = ({
-  variant = 'body',
-  color = 'text',
-  style,
-  ...rest
-}: Props) => {
+const Text = ({ variant = 'body', color = 'text', style, ...rest }: Props) => {
   const { theme } = useTheme();
 
   return (
@@ -34,6 +36,6 @@ const Text = ({
       ]}
     />
   );
-}
+};
 
-export { Text}
+export { Text };

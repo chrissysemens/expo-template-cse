@@ -102,8 +102,8 @@ const Button = ({
 
   return (
     <AnimatedPressable
-      testID={testID || "button"}
-      accessibilityLabel={testID || "button"}
+      testID={testID || 'button'}
+      accessibilityLabel={testID || 'button'}
       accessibilityRole="button"
       accessibilityState={{ disabled: isDisabled, busy: loading }}
       disabled={isDisabled}
@@ -144,7 +144,7 @@ const Button = ({
       )}
     </AnimatedPressable>
   );
-}
+};
 
 const styles = StyleSheet.create({
   buttonBase: {
@@ -155,4 +155,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { Button};
+export { Button };

@@ -17,7 +17,14 @@ type Props = {
   onChange: (value: string) => void;
   testID?: string;
 };
-const Dropdown = ({ label, placeholder, options, value, onChange, testID }: Props) => {
+const Dropdown = ({
+  label,
+  placeholder,
+  options,
+  value,
+  onChange,
+  testID,
+}: Props) => {
   const [open, setOpen] = useState<boolean>();
   const { theme } = useTheme();
 

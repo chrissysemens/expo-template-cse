@@ -27,10 +27,13 @@ export const Stack = ({
       style={[{ alignItems: align, justifyContent: justify }, style]}
     >
       {kids.map((child, i) => (
-        <View key={i} style={i === 0 ? undefined : { marginTop: theme.spacing[gap] }}>
+        <View
+          key={i}
+          style={i === 0 ? undefined : { marginTop: theme.spacing[gap] }}
+        >
           {child}
         </View>
       ))}
     </View>
   );
-}
+};

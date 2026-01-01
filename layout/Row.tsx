@@ -27,15 +27,23 @@ export const Row = ({
     <View
       {...props}
       style={[
-        { flexDirection: 'row', alignItems: align, justifyContent: justify, flexWrap: wrap ? 'wrap' : 'nowrap' },
+        {
+          flexDirection: 'row',
+          alignItems: align,
+          justifyContent: justify,
+          flexWrap: wrap ? 'wrap' : 'nowrap',
+        },
         style,
       ]}
     >
       {kids.map((child, i) => (
-        <View key={i} style={i === 0 ? undefined : { marginLeft: theme.spacing[gap] }}>
+        <View
+          key={i}
+          style={i === 0 ? undefined : { marginLeft: theme.spacing[gap] }}
+        >
           {child}
         </View>
       ))}
     </View>
   );
-}
+};
