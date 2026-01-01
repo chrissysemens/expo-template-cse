@@ -13,7 +13,10 @@
     "storybook-generate": "sb-rn-get-stories",
     "storybook": "cross-env EXPO_PUBLIC_STORYBOOK_ENABLED=true expo start -c",
     "test": "jest --watch",
-    "test:ci": "jest"
+    "test:ci": "jest",
+    "eas:dev": "eas build --profile development",
+    "eas:preview": "eas build --profile preview",
+    "eas:prod": "eas build --profile production"
   },
   "dependencies": {
     "@babel/core": "^7.28.5",
